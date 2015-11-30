@@ -57,7 +57,7 @@ public String getInputs(Model model, @RequestParam("inp-length") String givenLen
 @RequestMapping(value="/",method=RequestMethod.POST, params={"caltri"})
 public String getTriInputs(Model model, @RequestParam("inp-length") String givenLength,@RequestParam("output-units") String outType,@RequestParam("inp-units") String inpType2, @RequestParam("inp-width") String breadth, @RequestParam("inp-height") String height) throws UnirestException{	
 	
-	String stanGivenLength, tempResult2,volume2,inpType = null,stanType = null;
+	String stanGivenLength, stanGivenBreadth, tempResult2,volume2,inpType = null,stanType = null;
 	if(outType.equals(inpType2))
 	{
 		inpType = outType;
@@ -70,7 +70,8 @@ public String getTriInputs(Model model, @RequestParam("inp-length") String given
 	}
 	
 	stanGivenLength=restService(inpType,stanType,givenLength);	
-	tempResult2=getTPiramidSide(stanGivenLength);
+	stanGivenBreadth=restService(inpType,stanType,breadth);	
+	tempResult2=getTPiramidSide(stanGivenLength, stanGivenBreadth);
 	volume2=getTPiramidVolume(tempResult2);		
 	
 	model.addAttribute("side", tempResult2);
@@ -153,9 +154,10 @@ public String getRPiramidSide(String standLength, String standBreadth)
 	Double givenLength=Double.parseDouble(standLength);
 	Double givenBreadth=Double.parseDouble(standBreadth);
 	
-	Double length1 = (givenLength - (4*givenBreadth))/8;
-	Double length2 = (givenLength + (4*givenBreadth))/8;
-	Double sideOfRpyr = length1 + givenBreadth;
+	Double length2 = (givenLength + (7*givenBreadth))/8;
+	Double length1 = length2 - givenBreadth;
+	
+	Double sideOfRpyr = length2;
 	
 	String result = sideOfRpyr.toString() + ";" + length1.toString() + ";" + length2.toString();
 	return result;	
@@ -166,10 +168,12 @@ public String getRPiramidVolume(String tempResult)
 	Double volumeOfRPiramid = (lengthOfSideOfTriangle*lengthOfSideOfTriangle*lengthOfSideOfTriangle*SQRTOF2)/6;
 	return volumeOfRPiramid.toString();
 }
-public String getTPiramidSide(String length) 
+public String getTPiramidSide(String standLength, String standBreadth) 
 {
-	Double lengthOfRod = Double.parseDouble(length);
-	Double lengthOfSideOfTriangle = lengthOfRod/6;
+	Double givenLength=Double.parseDouble(standLength);
+	Double givenBreadth=Double.parseDouble(standBreadth);
+	
+	Double lengthOfSideOfTriangle = (givenLength + ((5* givenBreadth)/1.41235))/6;
 	return lengthOfSideOfTriangle.toString();
 }
 public String getTPiramidVolume(String tempResult)
