@@ -1,0 +1,45 @@
+@CHARSET "UTF-8";
+
+canvas { width: 100%; height: 100% }
+.container {
+    width: 28%;
+    height: 450px;
+    border: 1px solid black;
+    margin-left: 20px;
+}
+
+.main{
+    margin-left: 20px;
+}
+
+.length-label{
+	margin-left:-10px;
+    padding-bottom: 10px;
+    color:#3343b0;
+    font-size: 20px;
+}
+
+.subclass
+{
+	padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+#calcbtn{
+    color:black;
+}
+
+.units{
+    background-color: #96d3ea;
+}
+
+input[type="text"] {
+    width: 200px;
+    padding-bottom: 15px;
+}
+
+.labels{
+	font-size:18px;
+	color: red;
+	padding-bottom:10px;
+}
